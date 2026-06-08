@@ -219,7 +219,7 @@ const procesarVentaBD = () => {
                         <span class="text-green-600">${{ calcularTotalCarrito() }}</span>
                     </div>
                     <button @click="abrirMenuEnvio" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition shadow">
-                        Proceder al Pago 🚀
+                        Proceder al Pago 
                     </button>
                 </div>
             </div>

@@ -10,7 +10,8 @@ defineProps({
 <template>
     <Head title="Bienvenido a Raíces Digitales" />
 
-    <div class="relative min-h-screen bg-gray-50 selection:bg-green-500 selection:text-white">
+    <div class="relative min-h-screen bg-gray-50 selection:bg-green-500 selection:text-white animate-fade-in">
+        
         <nav v-if="canLogin" class="p-6 text-right z-10 relative bg-white shadow-sm">
             <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="text-gray-600 hover:text-green-600 font-semibold">Ir al Panel de Control</Link>
             <template v-else>
@@ -20,31 +21,32 @@ defineProps({
         </nav>
 
         <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16 flex flex-col items-center text-center">
-            <div class="mb-8">
-                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span class="text-4xl">🌱</span>
-                </div>
-                <h1 class="text-5xl font-extrabold text-gray-900 mb-4">Raíces Digitales</h1>
+            
+            <div class="mb-8 animate-fade-in-up">
+<div class="w-24 h-24 flex items-center justify-center mx-auto mb-6 transform hover:scale-110 transition duration-500">
+    <img src="/images/image.png" alt="Logo Raíces Digitales" class="w-full h-full object-contain" />
+</div>
+                <h1 class="text-6xl font-extrabold text-gray-900 mb-4 tracking-tight">Raíces Digitales</h1>
                 <p class="text-xl text-gray-600 max-w-2xl">
                     Conectando la tecnología con el campo. Gestiona tus cultivos, vende productos orgánicos y apoya la agricultura local.
                 </p>
             </div>
 
-            <div class="flex gap-4">
-                <Link :href="route('register')" class="bg-green-600 text-white px-8 py-3 rounded-full text-lg font-bold hover:bg-green-700 shadow-lg transition">Empezar ahora</Link>
-                <a href="#info" class="bg-white text-green-600 border border-green-600 px-8 py-3 rounded-full text-lg font-bold hover:bg-green-50 transition">Saber más</a>
+            <div class="flex gap-4 animate-fade-in-up delay-200">
+                <Link :href="route('register')" class="bg-green-600 text-white px-8 py-3 rounded-full text-lg font-bold hover:bg-green-700 shadow-lg transition transform hover:scale-105">Empezar ahora</Link>
+                <a href="#info" class="bg-white text-green-600 border border-green-600 px-8 py-3 rounded-full text-lg font-bold hover:bg-green-50 transition transform hover:scale-105">Saber más</a>
             </div>
 
-            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 animate-fade-in-up delay-300">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
                     <h3 class="text-lg font-bold text-green-700 mb-2">Mis Cultivos</h3>
                     <p class="text-gray-500 text-sm">Monitorea el crecimiento y salud de tus siembras en tiempo real.</p>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
                     <h3 class="text-lg font-bold text-green-700 mb-2">Ventas</h3>
                     <p class="text-gray-500 text-sm">Vende tus productos directamente al consumidor final sin intermediarios.</p>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
                     <h3 class="text-lg font-bold text-green-700 mb-2">Comunidad</h3>
                     <p class="text-gray-500 text-sm">Únete a la red de agricultores digitales más grande de la región.</p>
                 </div>
@@ -52,3 +54,19 @@ defineProps({
         </div>
     </div>
 </template>
+
+<style>
+/* Animaciones personalizadas para el toque profesional */
+@keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+    animation: fade-in-up 0.8s ease-out forwards;
+}
+.animate-fade-in {
+    animation: fade-in 1s ease-in;
+}
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+</style>

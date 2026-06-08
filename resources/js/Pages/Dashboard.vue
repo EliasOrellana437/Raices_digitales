@@ -63,7 +63,7 @@ import { Head } from '@inertiajs/vue3';
                         
                         <a href="/cultivos" class="flex items-center justify-between bg-white hover:bg-emerald-50/60 border border-gray-200 hover:border-emerald-200 p-5 rounded-2xl transition duration-200 shadow-sm group">
                             <div class="flex items-center gap-3">
-                                <span class="text-xl bg-emerald-50 p-2.5 rounded-xl group-hover:bg-white transition">🌱</span>
+                                <span class="text-xl bg-emerald-50 p-2.5 rounded-xl group-hover:bg-white transition"></span>
                                 <div class="flex flex-col">
                                     <span class="font-bold text-sm text-gray-800 group-hover:text-emerald-950">Mis Cultivos</span>
                                     <span class="text-xs text-gray-400 font-medium">Control de siembras y parcelas</span>
@@ -74,7 +74,7 @@ import { Head } from '@inertiajs/vue3';
 
                         <a href="/catalogo" class="flex items-center justify-between bg-white hover:bg-emerald-50/60 border border-gray-200 hover:border-emerald-200 p-5 rounded-2xl transition duration-200 shadow-sm group">
                             <div class="flex items-center gap-3">
-                                <span class="text-xl bg-emerald-50 p-2.5 rounded-xl group-hover:bg-white transition">🛒</span>
+                                <span class="text-xl bg-emerald-50 p-2.5 rounded-xl group-hover:bg-white transition"></span>
                                 <div class="flex flex-col">
                                     <span class="font-bold text-sm text-gray-800 group-hover:text-emerald-950">Mercado / Catálogo</span>
                                     <span class="text-xs text-gray-400 font-medium">Comercialización directa</span>
@@ -85,7 +85,7 @@ import { Head } from '@inertiajs/vue3';
 
                         <a href="/ventas" class="flex items-center justify-between bg-white hover:bg-emerald-50/60 border border-gray-200 hover:border-emerald-200 p-5 rounded-2xl transition duration-200 shadow-sm group">
                             <div class="flex items-center gap-3">
-                                <span class="text-xl bg-emerald-50 p-2.5 rounded-xl group-hover:bg-white transition">📊</span>
+                                <span class="text-xl bg-emerald-50 p-2.5 rounded-xl group-hover:bg-white transition"></span>
                                 <div class="flex flex-col">
                                     <span class="font-bold text-sm text-gray-800 group-hover:text-emerald-950">Transacciones</span>
                                     <span class="text-xs text-gray-400 font-medium">Historial de pedidos y ventas</span>
