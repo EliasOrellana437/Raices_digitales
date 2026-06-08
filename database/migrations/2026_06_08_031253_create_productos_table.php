@@ -9,24 +9,24 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-Schema::create('cultivos', function (Blueprint $table) {
+public function up(): void
+{
+    Schema::create('productos', function (Blueprint $table) {
         $table->id();
-        $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade'); // Añade esta línea
         $table->string('nombre');
-        $table->date('fecha_siembra');
-        $table->string('estado')->default('Creciendo');
+        $table->string('vendedor'); // <-- Esta es la columna que MySQL Workbench está pidiendo a gritos
+        $table->decimal('precio', 8, 2);
+        $table->integer('stock')->default(10);
+        $table->string('imagen')->nullable();
         $table->text('descripcion')->nullable();
         $table->timestamps();
-        });
-    }
-
+    });
+}
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('cultivos');
+        Schema::dropIfExists('productos');
     }
 };

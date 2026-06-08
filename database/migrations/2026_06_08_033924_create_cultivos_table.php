@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detalle_ventas', function (Blueprint $table) {
+        // 🔹 ¡CORREGIDO AQUÍ! Ahora sí creará la tabla 'cultivos'
+        Schema::create('cultivos', function (Blueprint $table) {
             $table->id();
-            $table->string('producto_nombre');
-            $table->decimal('precio', 8, 2)->default(0.00);
-            $table->integer('cantidad')->default(1);
-            $table->decimal('total', 8, 2)->default(0.00); // <-- Forzado con un default limpio y correcto para MySQL
+            $table->string('nombre');
+            $table->string('tipo')->nullable();
+            $table->string('estado')->default('En desarrollo');
+            $table->integer('area')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +27,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detalle_ventas');
+        // 🔹 ¡CORREGIDO AQUÍ TAMBIÉN!
+        Schema::dropIfExists('cultivos');
     }
 };

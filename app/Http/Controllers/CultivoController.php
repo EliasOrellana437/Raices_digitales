@@ -4,23 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Models\Cultivo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; // <-- ASEGÚRATE DE QUE ESTA LÍNEA ESTÉ AQUÍ
 use Inertia\Inertia;
+
 class CultivoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-public function index()
-{
-    // Traemos los cultivos del usuario
-    $cultivos = Cultivo::where('user_id', Auth::id())->get();
+    public function index()
+    {
+        // Si la tabla de cultivos está en cero tras el migrate:fresh, metemos datos semilla
+        if (Cultivo::count() === 0) {
+            Cultivo::create([
+                'nombre' => 'Yuca Local',
+                'tipo' => 'Tubérculo',
+                'estado' => 'En desarrollo',
+                'area' => 5 // 5 tareas / manzanas / metros
+            ]);
 
-    // SOLO escribe 'Cultivos', sin el 'Pages/'
-    return Inertia::render('Cultivos', [
-        'cultivos' => $cultivos
-    ]);
-}
+            Cultivo::create([
+                'nombre' => 'Tomate de Cocina',
+                'tipo' => 'Hortaliza',
+                'estado' => 'Listo para cosecha',
+                'area' => 3
+            ]);
+        }
+
+        // Retornamos la vista enviando los cultivos reales de MySQL
+        return Inertia::render('Cultivos', [
+            'cultivos' => Cultivo::latest()->get()
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -33,20 +44,21 @@ public function index()
      * Store a newly created resource in storage.
      */
 public function store(Request $request)
-{
+    {
         $request->validate([
             'nombre' => 'required|string|max:255',
-            'fecha_siembra' => 'required|date',
+            'tipo' => 'nullable|string',
+            'estado' => 'nullable|string',
+            'area' => 'nullable|integer',
         ]);
 
-        // Aquí es donde le pasamos el ID del usuario logueado
-        Cultivo::create([
-            'user_id' => Auth::id(), 
-            'nombre' => $request->nombre,
-            'fecha_siembra' => $request->fecha_siembra,
-            'estado' => 'Creciendo',
-            'descripcion' => $request->descripcion,
-        ]);
+        // Guardado manual inmune a bloqueos de asignación masiva
+        $cultivo = new Cultivo();
+        $cultivo->nombre = $request->nombre;
+        $cultivo->tipo = $request->tipo;
+        $cultivo->estado = $request->estado ?? 'En desarrollo';
+        $cultivo->area = $request->area;
+        $cultivo->save();
 
         return redirect()->route('cultivos');
     
