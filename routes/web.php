@@ -24,8 +24,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     // MÓDULO: CULTIVOS
-    Route::get('/cultivos', [CultivoController::class, 'index'])->name('cultivos');
-    Route::post('/cultivos', [CultivoController::class, 'store'])->name('cultivos.store');
+// CULTIVOS
+Route::get('/cultivos', [CultivoController::class, 'index'])->name('cultivos');
+Route::post('/cultivos', [CultivoController::class, 'store'])->name('cultivos.store');
+Route::put('/cultivos/{id}', [CultivoController::class, 'update'])->name('cultivos.update'); // Para editar
+Route::delete('/cultivos/{id}', [CultivoController::class, 'destroy'])->name('cultivos.destroy'); // Para eliminar
 
     // MÓDULO: CATÁLOGO / MERCADO
     Route::get('/catalogo', [ProductoController::class, 'index'])->name('catalogo');

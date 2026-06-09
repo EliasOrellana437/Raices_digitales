@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Venta;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\DB; // 🔹 Importante para usar transacciones
 
 class VentaController extends Controller
 {
-    // Carga las ventas reales de MySQL Workbench
     public function index()
     {
         return Inertia::render('Ventas', [
@@ -16,20 +17,44 @@ class VentaController extends Controller
         ]);
     }
 
-    // Procesa y guarda la compra
-public function store(Request $request)
-{
-    $request->validate([
-        'total' => 'required|numeric',
-    ]);
+    public function store(Request $request)
+    {
+        $request->validate([
+            'items' => 'required|array',
+            'total' => 'required|numeric',
+        ]);
 
-    // Guardamos usando los campos EXACTOS de tu migración real
-    $venta = new Venta();
-    $venta->user_id = auth()->id(); // 🔹 Captura automáticamente el ID del usuario logueado
-    $venta->total = $request->total;
-    $venta->estado = 'Completado'; // O 'pagado', según prefieras
-    $venta->save();
+        // Usamos una transacción para asegurar que todo se guarde bien o nada se guarde
+        DB::beginTransaction();
 
-    return redirect()->route('ventas');
-}
+        try {
+            // 1. Guardar la venta principal
+            $venta = new Venta();
+            $venta->user_id = auth()->id();
+            $venta->total = $request->total;
+            $venta->estado = 'Completado';
+            $venta->save();
+
+            // 2. Descontar stock de cada producto
+            foreach ($request->items as $item) {
+                $producto = Producto::findOrFail($item['id']);
+                
+                // Verificamos stock antes de restar
+                if ($producto->stock < $item['cantidad']) {
+                    throw new \Exception("Stock insuficiente para: " . $producto->nombre);
+                }
+
+                $producto->stock -= $item['cantidad'];
+                $producto->save();
+            }
+
+            DB::commit(); // Todo salió bien, guardamos cambios
+
+            return redirect()->route('ventas');
+
+        } catch (\Exception $e) {
+            DB::rollBack(); // Algo falló, revertimos todo
+            return back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
 }

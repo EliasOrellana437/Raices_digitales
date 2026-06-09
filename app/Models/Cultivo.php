@@ -9,5 +9,6 @@ class Cultivo extends Model
 {
     use HasFactory;
 
-    protected $guarded = []; // Liberamos todas las columnas
+    // Con esto le decimos a Laravel que puede guardar cualquier campo que le enviemos
+    protected $guarded = []; 
 }
